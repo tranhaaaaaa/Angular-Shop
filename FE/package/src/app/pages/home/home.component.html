@@ -1,0 +1,27 @@
+<div class="p-4">
+    <h2 class="mb-4">🛍️ Danh sách sản phẩm</h2>
+    <div class="grid grid-cols-4 gap-4">
+      <mat-card *ngFor="let product of products">
+        <img mat-card-image [src]="product.image" alt="{{product.name}}">
+        <mat-card-title>{{ product.name }}</mat-card-title>
+        <mat-card-content>
+          <p>Giá: {{ product.price | currency:'VND' }}</p>
+        </mat-card-content>
+        <mat-card-actions>
+          <button mat-raised-button color="primary">Thêm vào giỏ</button>
+        </mat-card-actions>
+      </mat-card>
+    </div>
+  
+    <h2 class="mt-8 mb-4">🎁 Voucher ưu đãi</h2>
+    <div class="grid grid-cols-3 gap-4">
+      <mat-card *ngFor="let voucher of vouchers" class="bg-light">
+        <mat-card-title>{{ voucher.title }}</mat-card-title>
+        <mat-card-content>
+          <p>Giảm giá: {{ voucher.discount }}%</p>
+          <p>HSD: {{ voucher.expiry | date }}</p>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </div>
+  
