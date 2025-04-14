@@ -16,7 +16,7 @@ export class UserService extends ApiService {
   }
 
   getAllUser(): Observable<ODataResponse> {
-    let url = '/Users?$Orderby=Id DESC';
+    let url = '/Users?$Orderby=UserId DESC';
     return super.get(url).pipe(
       catchError((err) => throwError(() => new Error(err))),
 
@@ -37,7 +37,7 @@ export class UserService extends ApiService {
   }
 
   getUserById(Id: any): Observable<ODataResponse> {
-    let url = `/Users?$filter=Id eq ${Id}&$expand=Addresses
+    let url = `/Users?$filter=UserId eq ${Id}&$expand=Addresses
 &$expand=Carts
 &$expand=Items
 &$expand=Orders

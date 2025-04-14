@@ -26,6 +26,7 @@ namespace ShopApi.Models
         public virtual DbSet<Order> Orders { get; set; } = null!;
         public virtual DbSet<Orderdetail> Orderdetails { get; set; } = null!;
         public virtual DbSet<Payment> Payments { get; set; } = null!;
+        public virtual DbSet<Review> Reviews { get; set; } = null!;
         public virtual DbSet<Role> Roles { get; set; } = null!;
         public virtual DbSet<User> Users { get; set; } = null!;
         public virtual DbSet<UserRole> UserRoles { get; set; } = null!;
@@ -126,6 +127,8 @@ namespace ShopApi.Models
                 entity.Property(e => e.ItemId).HasColumnName("item_id");
 
                 entity.Property(e => e.CategoryId).HasColumnName("category_id");
+
+                entity.Property(e => e.CreatedAt).HasColumnType("datetime");
 
                 entity.Property(e => e.Discount).HasColumnName("discount");
 
@@ -274,6 +277,38 @@ namespace ShopApi.Models
                     .HasForeignKey(d => d.OrderId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK__payments__order___6EF57B66");
+            });
+
+            modelBuilder.Entity<Review>(entity =>
+            {
+                entity.ToTable("reviews");
+
+                entity.Property(e => e.ReviewId).HasColumnName("review_id");
+
+                entity.Property(e => e.Comment).HasColumnName("comment");
+
+                entity.Property(e => e.CreatedAt)
+                    .HasColumnType("datetime")
+                    .HasColumnName("created_at")
+                    .HasDefaultValueSql("(getdate())");
+
+                entity.Property(e => e.ItemId).HasColumnName("item_id");
+
+                entity.Property(e => e.Rating).HasColumnName("rating");
+
+                entity.Property(e => e.UserId).HasColumnName("user_id");
+
+                entity.HasOne(d => d.Item)
+                    .WithMany(p => p.Reviews)
+                    .HasForeignKey(d => d.ItemId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK__reviews__item_id__1CBC4616");
+
+                entity.HasOne(d => d.User)
+                    .WithMany(p => p.Reviews)
+                    .HasForeignKey(d => d.UserId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK__reviews__user_id__1DB06A4F");
             });
 
             modelBuilder.Entity<Role>(entity =>

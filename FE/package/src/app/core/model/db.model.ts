@@ -11,6 +11,7 @@ type TPayment = Payment;
 type TUser = User;
 type TUserRole = UserRole;
 type TRole = Role;
+type TReview = Review;
 import { JsonObject, JsonProperty, JsonConverter, JsonConvert, JsonCustomConvert } from 'json2typescript';
 
 @JsonConverter
@@ -193,6 +194,17 @@ export class ItemimageArrayConverter implements JsonCustomConvert<Itemimage[]> {
     deserialize(data: any): Itemimage[] {
         const jsonConvert = new JsonConvert();
         return jsonConvert.deserializeArray(data, Itemimage);
+    }
+}
+@JsonConverter
+export class ReviewArrayConverter implements JsonCustomConvert<Review[]> {
+    serialize(data: Review[]): any {
+        const jsonConvert = new JsonConvert();
+        return jsonConvert.serializeArray(data);
+    }
+    deserialize(data: any): Review[] {
+        const jsonConvert = new JsonConvert();
+        return jsonConvert.deserializeArray(data, Review);
     }
 }
 @JsonConverter
@@ -405,6 +417,9 @@ export class Item {
     @JsonProperty('CreatedBy', NumberConverter, true)
     CreatedBy: number = undefined as any;
 
+    @JsonProperty('CreatedAt', DateTimeConverter, true)
+    CreatedAt: Date = undefined as any;
+
     @JsonProperty('Category', CategoryConverter, true)
     Category: Category = undefined as any;
 
@@ -419,6 +434,9 @@ export class Item {
 
     @JsonProperty('Itemimages', ItemimageArrayConverter, true)
     Itemimages: Itemimage[] = [] as any;
+
+    @JsonProperty('Reviews', ReviewArrayConverter, true)
+    Reviews: Review[] = [] as any;
 
 }
 
@@ -594,6 +612,9 @@ export class User {
     @JsonProperty('Orders', OrderArrayConverter, true)
     Orders: Order[] = [] as any;
 
+    @JsonProperty('Reviews', ReviewArrayConverter, true)
+    Reviews: Review[] = [] as any;
+
     @JsonProperty('UserRoles', UserRoleArrayConverter, true)
     UserRoles: UserRole[] = [] as any;
 
@@ -630,5 +651,34 @@ export class Role {
 
     @JsonProperty('UserRoles', UserRoleArrayConverter, true)
     UserRoles: UserRole[] = [] as any;
+
+}
+
+@JsonObject('Review')
+export class Review {
+
+    @JsonProperty('ReviewId', NumberConverter, true)
+    ReviewId: number = undefined as any;
+
+    @JsonProperty('ItemId', NumberConverter, true)
+    ItemId: number = undefined as any;
+
+    @JsonProperty('UserId', NumberConverter, true)
+    UserId: number = undefined as any;
+
+    @JsonProperty('Rating', NumberConverter, true)
+    Rating: number = undefined as any;
+
+    @JsonProperty('Comment', StringConverter, true)
+    Comment: string = undefined as any;
+
+    @JsonProperty('CreatedAt', DateTimeConverter, true)
+    CreatedAt: Date = undefined as any;
+
+    @JsonProperty('Item', ItemConverter, true)
+    Item: Item = undefined as any;
+
+    @JsonProperty('User', UserConverter, true)
+    User: User = undefined as any;
 
 }

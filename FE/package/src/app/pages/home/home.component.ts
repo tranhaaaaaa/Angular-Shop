@@ -1,7 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { Item, Itemdetail } from 'src/app/core/model/db.model';
+import { Item } from 'src/app/core/model/db.model';
+import { CartService } from 'src/app/core/services/cart.service';
+import { CartitemService } from 'src/app/core/services/cartitem.service';
 import { ItemService } from 'src/app/core/services/item.service';
 import { ItemdetailService } from 'src/app/core/services/itemdetail.service';
+import { UserLogged } from 'src/app/core/utils/userlogged';
 
 @Component({
   selector: 'app-home',
@@ -9,24 +12,18 @@ import { ItemdetailService } from 'src/app/core/services/itemdetail.service';
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss'
 })
-export class HomeComponent implements OnInit{
-  public listItem : Itemdetail[] = [];
-  constructor(private service : ItemService,
-    private serviceItemDetail : ItemdetailService
+export class HomeComponent implements OnInit {
+  public listItem: Item[] = [];
+  public filteredItems: Item[] = [];
+  public searchTerm: string = '';
+  public sortBy: string = 'name-asc';
+  public userLogged = new UserLogged();
+  constructor(
+    private service: ItemService,
+    private serviceItemDetail: ItemdetailService,
+    private serviceCart : CartService,
+    private serviceCartItem : CartitemService
   ) {}
-  ngOnInit(): void {
-    this.onGetData();
-  }
-  products = [
-    { name: 'Áo thun DDG', price: 150000, image: 'https://cdn.tgdd.vn/Products/Images/42/329143/iphone-16-pro-tu-nhien-thumb-600x600.jpg' },
-    { name: 'Quần jeans DDG', price: 350000, image: 'https://danviet.mediacdn.vn/upload/2-2019/images/2019-06-25/3-1561430885-width660height440.jpg' },
-    { name: 'Balo mini', price: 250000, image: 'https://cdn.tgdd.vn/Products/Images/42/305658/iphone-15-pro-max-black-thumbnew-600x600.jpg' },
-    { name: 'Giày thể thao', price: 450000, image: 'https://www.apple.com/newsroom/images/2024/09/apple-debuts-iphone-16-pro-and-iphone-16-pro-max/tile/Apple-iPhone-16-Pro-hero-geo-240909-lp.jpg.landing-big_2x.jpg' },
-    { name: 'Áo thun DDG', price: 150000, image: 'https://cdn.tgdd.vn/Products/Images/42/329143/iphone-16-pro-tu-nhien-thumb-600x600.jpg' },
-    { name: 'Quần jeans DDG', price: 350000, image: 'https://danviet.mediacdn.vn/upload/2-2019/images/2019-06-25/3-1561430885-width660height440.jpg' },
-    { name: 'Balo mini', price: 250000, image: 'https://cdn.tgdd.vn/Products/Images/42/305658/iphone-15-pro-max-black-thumbnew-600x600.jpg' },
-    { name: 'Giày thể thao', price: 450000, image: 'https://www.apple.com/newsroom/images/2024/09/apple-debuts-iphone-16-pro-and-iphone-16-pro-max/tile/Apple-iPhone-16-Pro-hero-geo-240909-lp.jpg.landing-big_2x.jpg' }
-  ];
 
   vouchers = [
     { title: 'Giảm 10% cho đơn từ 500K', discount: 10, expiry: new Date('2025-05-01') },
@@ -34,10 +31,109 @@ export class HomeComponent implements OnInit{
     { title: 'Giảm 15% cho khách mới', discount: 15, expiry: new Date('2025-05-15') }
   ];
 
+  ngOnInit(): void {
+    this.onGetData();
+  }
+
   onGetData() {
-    this.serviceItemDetail.getAllItemdetail().subscribe(data => {
+    this.service.getAllItem().subscribe(data => {
       this.listItem = data.value;
-      console.log(this.listItem);
+      this.applyFilters();
     });
   }
+
+  applyFilters() {
+    let items = [...this.listItem];
+
+    if (this.searchTerm) {
+      items = items.filter(item =>
+        item.ItemName?.toLowerCase().includes(this.searchTerm.toLowerCase())
+      );
+    }
+
+    // Sắp xếp
+    switch (this.sortBy) {
+      case 'name-asc':
+        items.sort((a, b) => a.ItemName.localeCompare(b.ItemName));
+        break;
+      case 'name-desc':
+        items.sort((a, b) => b.ItemName.localeCompare(a.ItemName));
+        break;
+      case 'price-asc':
+        items.sort((a, b) => a.Itemdetails[0]?.ItemPrice - b.Itemdetails[0]?.ItemPrice);
+        break;
+      case 'price-desc':
+        items.sort((a, b) => b.Itemdetails[0]?.ItemPrice - a.Itemdetails[0]?.ItemPrice);
+        break;
+    }
+
+    this.filteredItems = items;
+  }
+
+  addToCart(product: any) {
+    const userId = this.userLogged.getCurrentUser()?.userId;
+  
+    this.serviceCart.getCartByQuery(`$filter=UserId eq ${userId}&$expand=Cartitems($filter=ItemId eq ${product.ItemId})`).subscribe(cartItem => {
+      debugger;
+      
+      if (cartItem.value.length !== 0) {
+        const cartItems = cartItem.value[0];
+  
+        const existingItem = cartItems.Cartitems.some((item: any) => item.ItemId === product.ItemId);
+  
+        if (existingItem) {
+          const cartItemToUpdate = cartItems.Cartitems.find((item: any) => item.ItemId === product.ItemId);
+          cartItemToUpdate.Quantity = cartItemToUpdate.Quantity + 1;  
+          this.serviceCartItem.UpdateCartitem(cartItemToUpdate,cartItemToUpdate.CartItemId).subscribe(() => {
+            alert('Sản phẩm đã được cập nhật trong giỏ.');
+          })
+          // this.serviceCart.UpdateCart(cartItem.value, cartItem.CartId).subscribe(updatedData => {
+          //   alert('Sản phẩm đã được cập nhật trong giỏ.');
+          // });
+        } else {
+          // Nếu sản phẩm chưa có trong giỏ, thêm mới
+          let formData = {
+            CartId: cartItems.CartId,
+            ItemId: product.ItemId,
+            Quantity: 1
+          };
+  
+          this.serviceCartItem.CreateCartitem(formData).subscribe(() => {
+            alert('Sản phẩm được thêm vào giỏ.');
+          });
+  
+          // this.serviceCart.UpdateCart(cartItem.value, cartItem.CartId).subscribe(() => {
+          //   let formData = {
+          //     CartId: cartItem.CartId, 
+          //     ItemId: product.ItemId,
+          //     Quantity: 1
+          //   };
+  
+            // this.serviceCartItem.CreateCartitem(formData).subscribe(() => {
+            //   alert('Sản phẩm đã được thêm vào giỏ.');
+            // });
+          // });
+        }
+      } else {
+        // Nếu giỏ hàng chưa tồn tại, tạo mới
+        const newCartItem = {
+          UserId: +userId,
+        };
+  
+        this.serviceCart.CreateCart(newCartItem).subscribe(data => {
+          let formData = {
+            CartId: data.CartId,
+            ItemId: product.ItemId,
+            Quantity: 1
+          };
+  
+          this.serviceCartItem.CreateCartitem(formData).subscribe(() => {
+            alert('Giỏ hàng đã được tạo và sản phẩm được thêm vào giỏ.');
+          });
+        });
+      }
+    });
+  }
+  
+  
 }

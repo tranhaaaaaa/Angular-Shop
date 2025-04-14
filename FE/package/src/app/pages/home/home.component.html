@@ -1,27 +1,72 @@
 <div class="p-4">
-    <h2 class="mb-4">🛍️ Danh sách sản phẩm</h2>
-    <div class="grid grid-cols-4 gap-4">
-      <mat-card *ngFor="let product of products">
-        <img mat-card-image [src]="product.image" alt="{{product.name}}">
-        <mat-card-title>{{ product.name }}</mat-card-title>
-        <mat-card-content>
-          <p>Giá: {{ product.price | currency:'VND' }}</p>
-        </mat-card-content>
-        <mat-card-actions>
-          <button mat-raised-button color="primary">Thêm vào giỏ</button>
-        </mat-card-actions>
-      </mat-card>
-    </div>
-  
-    <h2 class="mt-8 mb-4">🎁 Voucher ưu đãi</h2>
-    <div class="grid grid-cols-3 gap-4">
-      <mat-card *ngFor="let voucher of vouchers" class="bg-light">
-        <mat-card-title>{{ voucher.title }}</mat-card-title>
-        <mat-card-content>
-          <p>Giảm giá: {{ voucher.discount }}%</p>
-          <p>HSD: {{ voucher.expiry | date }}</p>
-        </mat-card-content>
-      </mat-card>
-    </div>
+  <h2 class="mb-4">🛍️ Danh sách sản phẩm</h2>
+
+  <!-- Tìm kiếm và sắp xếp -->
+  <div class="flex flex-wrap gap-4 mb-6 items-center justify-between">
+    <mat-label>Tìm kiếm: </mat-label>
+    <mat-form-field appearance="outline" class="w-150" color="primary" style="margin-right: 15px;">
+      <input matInput [(ngModel)]="searchTerm" (input)="applyFilters()" placeholder="🔍 Tìm kiếm..."/>
+    </mat-form-field>
+    <!-- <input
+      type="text"
+      placeholder="🔍 Tìm kiếm..."
+      [(ngModel)]="searchTerm"
+      (input)="applyFilters()"
+      matInput
+    /> -->
+    <mat-form-field appearance="outline" class="w-50">
+      <mat-label>Sắp xếp theo</mat-label>
+      <mat-select [(ngModel)]="sortBy" (selectionChange)="applyFilters()">
+        <mat-option value="name-asc">Tên (A-Z)</mat-option>
+        <mat-option value="name-desc">Tên (Z-A)</mat-option>
+        <mat-option value="price-asc">Giá tăng dần</mat-option>
+        <mat-option value="price-desc">Giá giảm dần</mat-option>
+      </mat-select>
+    </mat-form-field>
+    
   </div>
-  
+
+  <!-- Danh sách sản phẩm -->
+  <div class="col-md-4" style="gap:20px;display: flex;">
+    <mat-card *ngFor="let itemDetail of filteredItems">
+      <img *ngIf="itemDetail.Itemimages.length > 0" mat-card-image 
+      [src]="itemDetail.Itemimages[0].ItemImageUrl"
+      alt="{{itemDetail.ItemName}}">
+      <img *ngIf="!itemDetail.Itemimages.length" mat-card-image 
+      src="https://cdn.tgdd.vn/Files/2018/08/27/1112860/66_800x450.jpg"
+      alt="{{itemDetail.ItemName}}">
+ 
+      <mat-card-title style="margin-left: 15px;" [routerLink]="['/home/item-detail', itemDetail.ItemId]">{{ itemDetail.ItemName }}</mat-card-title>
+      <mat-card-content>
+        <div>
+      
+          <p *ngIf="itemDetail.Itemimages.length > 0">Giá: {{ itemDetail.Itemdetails[0].ItemPrice | currency:'VND' }}</p>
+          <p *ngIf="!itemDetail.Itemimages.length">Giá: Chưa có</p>
+        </div>
+        <div>
+          <p>Mô tả: {{ itemDetail.ItemDescription }}</p>
+        </div>
+        
+        <div>
+          <p *ngIf="itemDetail.Itemimages.length > 0">Màu sắc: {{ itemDetail.Itemdetails[0].Color }}</p>
+          <p *ngIf="!itemDetail.Itemimages.length">Màu sắc: Không có thông tin</p>
+
+        </div>
+      </mat-card-content>
+      <mat-card-actions>
+        <button mat-raised-button color="primary" (click)="addToCart(itemDetail)">Thêm vào giỏ</button>
+      </mat-card-actions>
+    </mat-card>
+  </div>
+
+  <h2 class="mt-8 mb-4">🎁 Voucher ưu đãi</h2>
+  <div class="grid grid-cols-3 gap-4">
+    <mat-card *ngFor="let voucher of vouchers" class="bg-light">
+      <mat-card-title>{{ voucher.title }}</mat-card-title>
+      <mat-card-content>
+        <p>Giảm giá: {{ voucher.discount }}%</p>
+        <p>HSD: {{ voucher.expiry | date }}</p>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>

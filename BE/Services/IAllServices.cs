@@ -13,4 +13,10 @@ namespace ShopApi.Services
     public interface IOrderService : IService<Order> { }
     public interface IOrderDetailService : IService<Orderdetail> { }
     public interface IPaymentService : IService<Payment> { }
+
+    public interface IRoleService : IService<Role> { }
+    public interface IUserRoleService : IService<UserRole> { }
+
+    public interface IReviewService : IService<Review> { }
+
 }

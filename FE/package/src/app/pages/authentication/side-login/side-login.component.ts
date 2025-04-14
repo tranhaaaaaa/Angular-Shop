@@ -5,6 +5,8 @@ import { RouterModule } from '@angular/router';
 import { MaterialModule } from 'src/app/material.module';
 import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
+import { LoginService } from 'src/app/core/services/login.service';
+import { UserLogged } from 'src/app/core/utils/userlogged';
 
 @Component({
   selector: 'app-side-login',
@@ -12,20 +14,46 @@ import { ReactiveFormsModule } from '@angular/forms';
   templateUrl: './side-login.component.html',
 })
 export class AppSideLoginComponent {
+  email : any;
+  pass: any;
+  constructor( private router: Router,
+    private service : LoginService
+  ) {}
 
-  constructor( private router: Router) {}
-
-  form = new FormGroup({
-    uname: new FormControl('', [Validators.required, Validators.minLength(6)]),
-    password: new FormControl('', [Validators.required]),
-  });
-
-  get f() {
-    return this.form.controls;
+  onChange(event: any) {
+    this.email = event.target.value
   }
-
+  onChangePass(event: any) {
+    this.pass = event.target.value
+  }
   submit() {
-    // console.log(this.form.value);
-    this.router.navigate(['/']);
+    let formData = {
+      Email: this.email,
+      Password: this.pass
+    }
+  console.log(formData);
+  this.service.Login(formData).subscribe(res => {
+ 
+    console.log(res);
+    if(res == null){
+      alert('Email hoac mat khau khong dung');
+    }else{
+      if(res.status == 1){
+        let userLogged: UserLogged = new UserLogged();
+        console.log(res);
+      debugger
+              userLogged.setCurrentUser(
+                res.token,
+                res.userid,
+                JSON.stringify(res.roles),
+              );
+             window.location.href = '/';
+      }
+      else{
+        alert("Tài khoản của bạn chưa được kích hoạt! ")
+         this.router.navigate(['/login']);
+      }
+    }
+  })
   }
 }

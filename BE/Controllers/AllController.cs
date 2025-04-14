@@ -56,9 +56,23 @@ namespace ShopApi.Controllers
         public PaymentsController(IPaymentService service) : base(service) { }
     }
 
+    public class UserRolesController : BaseController<UserRole>
+    {
+        public UserRolesController(IUserRoleService service) : base(service) { }
+    }
+
+    public class RolesController : BaseController<Role>
+    {
+        public RolesController(IRoleService service) : base(service) { }
+    }
+
     public class UsersController : BaseController<User>
     {
         public UsersController(IUserService service) : base(service) { }
+    }
+    public class ReviewsController : BaseController<Review>
+    {
+        public ReviewsController(IReviewService service) : base(service) { }
     }
     public class CustomController : Controller
     {

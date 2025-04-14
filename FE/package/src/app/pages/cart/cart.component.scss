@@ -1,0 +1,139 @@
+/* Giỏ hàng */
+.table-container {
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  }
+  
+  mat-header-cell, mat-cell {
+    padding: 12px 16px;
+    text-align: left;
+  }
+  
+  mat-header-cell {
+    font-weight: 600;
+    font-size: 16px;
+  }
+  
+  mat-card {
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: all 0.2s ease;
+  }
+  
+  mat-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  button.mat-raised-button {
+    margin-top: 20px;
+    font-weight: bold;
+    padding: 10px 16px;
+    background-color: #3b82f6;
+    border-radius: 8px;
+  }
+  
+  button.mat-raised-button:hover {
+    background-color: #2563eb;
+  }
+  
+  button.mat-icon-button {
+    transition: transform 0.3s ease;
+  }
+  
+  button.mat-icon-button:hover {
+    transform: scale(1.1);
+  }
+  
+  .thumbnail-list {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+  }
+  
+  .thumbnail-image {
+    width: 56px;
+    height: 56px;
+    object-fit: cover;
+    border-radius: 8px;
+    cursor: pointer;
+  }
+  
+  .thumbnail-image:hover {
+    border: 2px solid #3b82f6;
+  }
+  
+  .mat-form-field {
+    width: 80%;
+    max-width: 120px;
+    margin: 0 auto;
+  }
+  
+  .text-right {
+    text-align: right;
+  }
+  
+  .text-center {
+    text-align: center;
+  }
+  
+  .text-red-500 {
+    color: #f87171;
+  }
+  
+  .text-red-600 {
+    color: #ef4444;
+  }
+  
+  .text-lg {
+    font-size: 18px;
+  }
+  
+  .font-medium {
+    font-weight: 500;
+  }
+  
+  .font-semibold {
+    font-weight: 600;
+  }
+  
+  .hover\:text-red-700:hover {
+    color: #c53030;
+  }
+  
+  .transition {
+    transition: all 0.3s ease;
+  }
+  
+  .transform:hover {
+    transform: scale(1.05);
+  }
+  
+  /* Hình ảnh sản phẩm */
+  .mat-card img {
+    height: 100px;
+    width: auto;
+    object-fit: cover;
+    border-radius: 8px;
+  }
+  
+  .mat-form-field input {
+    width: 100%;
+    padding: 8px;
+    font-size: 14px;
+    border-radius: 4px;
+  }
+  
+  .mat-form-field input:focus {
+    outline: none;
+    border-color: #3b82f6;
+  }
+  
+  .mat-icon-button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: red;
+  }
+  

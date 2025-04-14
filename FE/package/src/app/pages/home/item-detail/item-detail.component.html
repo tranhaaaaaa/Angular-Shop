@@ -1,0 +1,94 @@
+<!-- Wrapper chia 2 cột theo 12 col -->
+
+<div class="bg-white rounded-lg shadow-lg row">
+
+    <!-- LEFT: Ảnh sản phẩm -->
+    <div class="product-image-container col-md-5">
+      <img 
+        [src]="selectedImageUrl || 'https://cdn.tgdd.vn/Files/2018/08/27/1112860/66_800x450.jpg'" 
+        alt="Ảnh sản phẩm"
+        class="main-product-image"
+      />
+  
+      <div class="thumbnail-list">
+        <img 
+          *ngFor="let img of item?.Itemimages" 
+          [src]="img.ItemImageUrl"
+          (click)="selectedImageUrl = img.ItemImageUrl"
+          class="thumbnail-image"
+        />
+      </div>
+    </div>
+  
+    <!-- RIGHT: Thông tin sản phẩm -->
+    <div class="flex flex-col col-md-7">
+      <div>
+        <h1 class="text-2xl font-bold mb-2" style="margin-top:40px">{{ item.ItemName }} – Chính hãng VN/A</h1>
+  
+        <div class="text-xl font-bold text-red-600" style="margin-bottom:40px;margin-top:50px">
+          <p *ngIf="item.Itemimages.length > 0">Giá: {{ item.Itemdetails[0].ItemPrice | currency:'VND' }}</p>
+          <p *ngIf="!item.Itemimages.length">Giá: Chưa có</p>
+        </div>
+  
+          
+  
+        <!-- Ưu đãi -->
+        <div class="bg-green-50 border border-green-400 p-4 rounded text-sm" style="margin-bottom:40px">
+          <p class="text-green-700 font-semibold">
+          <!-- <b> Dành riêng cho thành viên:</b>
+            {{ selectedVariant.ItemPrice * 0.97 | currency:'VND' }}
+          </p> -->
+          <p class="text-gray-600">Tiết kiệm 3% + 90.000 điểm thưởng</p>
+        </div>
+      </div>
+  
+        <div class="flex flex-col"style="margin-left: 505px;margin-top: 90px">
+            <button mat-flat-button color="primary">🛒 MUA NGAY</button>
+          </div>
+    </div>
+  </div>
+  <div class="p-4">
+    <h2 class="mb-4">🛍️ Sản phẩm liên quan</h2>
+  <div class="col-md-4" style="gap:20px;display: flex;">
+    <mat-card *ngFor="let itemDetail of listItem">
+      <img *ngIf="itemDetail.Itemimages.length > 0" mat-card-image 
+      [src]="itemDetail.Itemimages[0].ItemImageUrl"
+      alt="{{itemDetail.ItemName}}">
+      <img *ngIf="!itemDetail.Itemimages.length" mat-card-image 
+      src="https://cdn.tgdd.vn/Files/2018/08/27/1112860/66_800x450.jpg"
+      alt="{{itemDetail.ItemName}}">
+ 
+      <mat-card-title style="margin-left: 15px;" [routerLink]="['/home/item-detail', itemDetail.ItemId]">{{ itemDetail.ItemName }}</mat-card-title>
+      <mat-card-content>
+        <div>
+      
+          <p *ngIf="itemDetail.Itemimages.length > 0">Giá: {{ itemDetail.Itemdetails[0].ItemPrice | currency:'VND' }}</p>
+          <p *ngIf="!itemDetail.Itemimages.length">Giá: Chưa có</p>
+        </div>
+        <div>
+          <p>Mô tả: {{ itemDetail.ItemDescription }}</p>
+        </div>
+        
+        <div>
+          <p *ngIf="itemDetail.Itemimages.length > 0">Màu sắc: {{ itemDetail.Itemdetails[0].Color }}</p>
+          <p *ngIf="!itemDetail.Itemimages.length">Màu sắc: Không có thông tin</p>
+
+        </div>
+      </mat-card-content>
+      <mat-card-actions>
+        <button mat-raised-button color="primary" (click)="addToCart(itemDetail)">Thêm vào giỏ</button>
+      </mat-card-actions>
+    </mat-card>
+  </div>
+  </div>
+  <mat-divider class="my-2"></mat-divider>
+  <div class="p-2 bg-gray-50 text-sm">
+    <p class="font-semibold mb-1">📝 Đánh giá:</p>
+    <div *ngFor="let review of getReviewsByItem(item.ItemId)">
+      <p>⭐ {{ review.rating }} sao - <b>{{ review.user }}</b></p>
+      <p class="italic">"{{ review.comment }}"</p>
+      <mat-divider class="my-2"></mat-divider>
+    </div>
+    <p *ngIf="getReviewsByItem(item.ItemId).length === 0" class="text-gray-500 italic">Chưa có đánh giá nào.</p>
+  </div>
+  

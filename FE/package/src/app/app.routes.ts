@@ -30,6 +30,11 @@ export const routes: Routes = [
           import('./pages/extra/extra.routes').then((m) => m.ExtraRoutes),
       },
       {
+        path: 'cart',
+        loadChildren: () =>
+          import('./pages/cart/cart.module').then((m) => m.CartModule),
+      },
+      {
         path:'home',
         loadChildren: () =>
           import('./pages/home/home.module').then((m)=>m.HomeModule),

@@ -69,6 +69,10 @@ builder.Services.AddScoped<IOrderService, OrderService>();
 builder.Services.AddScoped<IOrderDetailService, OrderDetailService>();
 builder.Services.AddScoped<IPaymentService, PaymentService>();
 builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddScoped<IUserRoleService, UserRoleService>();
+builder.Services.AddScoped<IRoleService, RoleService>();
+builder.Services.AddScoped<IReviewService, ReviewService>();
+
 services.AddTransient<IAuthenticationService, AuthenticationService>();
 
 
@@ -119,5 +123,11 @@ IEdmModel GetEdmModel()
     odataBuilder.EntitySet<Orderdetail>("OrderDetails").EntityType.HasKey(x => x.OrderDetailId).Expand(5).Count().Page(100, 100);
     odataBuilder.EntitySet<Payment>("Payments").EntityType.HasKey(x => x.PaymentCode).Expand(5).Count().Page(100, 100);
     odataBuilder.EntitySet<User>("Users").EntityType.HasKey(x => x.UserId).Expand(5).Count().Page(100, 100);
+    odataBuilder.EntitySet<UserRole>("UserRoles").EntityType.HasKey(x => x.Id).Expand(5).Count().Page(100, 100);
+
+    odataBuilder.EntitySet<Role>("Roles").EntityType.HasKey(x => x.Id).Expand(5).Count().Page(100, 100);
+    odataBuilder.EntitySet<Review>("Reviews").EntityType.HasKey(x => x.ReviewId).Expand(5).Count().Page(100, 100);
+
+
     return odataBuilder.GetEdmModel();
 }

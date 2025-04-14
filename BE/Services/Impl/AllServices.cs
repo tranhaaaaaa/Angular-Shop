@@ -63,5 +63,20 @@ namespace ShopApi.Services.Impl
         public PaymentService(ShopSellerContext context, IMemoryCache cache, IConfiguration configuration)
             : base(context, cache, configuration) { }
     }
+    public class RoleService : BaseService<Role>, IRoleService
+    {
+        public RoleService(ShopSellerContext context, IMemoryCache cache, IConfiguration configuration)
+            : base(context, cache, configuration) { }
+    }
+    public class UserRoleService : BaseService<UserRole>, IUserRoleService
+    {
+        public UserRoleService(ShopSellerContext context, IMemoryCache cache, IConfiguration configuration)
+            : base(context, cache, configuration) { }
+    }
+    public class ReviewService : BaseService<Review>, IReviewService
+    {
+        public ReviewService(ShopSellerContext context, IMemoryCache cache, IConfiguration configuration)
+            : base(context, cache, configuration) { }
+    }
 
 }

@@ -1,0 +1,70 @@
+<div class="p-6 max-w-5xl mx-auto bg-white rounded-lg shadow-lg">
+    <h2 class="text-3xl font-bold mb-6 text-center text-gray-800">🛒 Giỏ hàng của bạn</h2>
+  
+    <table mat-table [dataSource]="listCartItems" class="w-full mat-elevation-z2">
+      <!-- Tên sản phẩm -->
+      <ng-container matColumnDef="name">
+        <th mat-header-cell *matHeaderCellDef class="px-6 py-4 text-left text-lg font-medium text-gray-700">Tên sản phẩm</th>
+        <td mat-cell *matCellDef="let item" class="px-6 py-4 text-lg text-gray-600">{{ item.Item.ItemName }}</td>
+      </ng-container>
+  
+      <!-- Hình ảnh -->
+      <ng-container matColumnDef="image">
+        <th mat-header-cell *matHeaderCellDef class="px-6 py-4 text-center">Ảnh</th>
+        <td mat-cell *matCellDef="let item" class="px-6 py-4 text-center">
+          <img 
+            style="object-fit: cover;width: 60%;margin-top:10px;border-radius: 12px; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1)"
+            [src]="item.Item.Itemimages?.[0]?.ItemImageUrl || defaultImage"
+            class="w-14 h-14 rounded-lg mx-auto transition-transform duration-200 transform hover:scale-105" />
+        </td>
+      </ng-container>
+  
+      <!-- Giá -->
+      <ng-container matColumnDef="price">
+        <th mat-header-cell *matHeaderCellDef class="px-6 py-4 text-right">Giá</th>
+        <td mat-cell *matCellDef="let item" class="px-6 py-4 text-right text-lg font-semibold text-gray-800">
+          {{ item.Item.Itemdetails?.[0]?.ItemPrice | currency:'VND' }}
+        </td>
+      </ng-container>
+  
+      <!-- Số lượng -->
+      <ng-container matColumnDef="quantity">
+        <th mat-header-cell *matHeaderCellDef class="px-6 py-4 text-center">Số lượng</th>
+        <td mat-cell *matCellDef="let item" class="px-6 py-4 text-center">
+          <mat-form-field appearance="outline" class="w-24">
+            <input matInput type="number" [(ngModel)]="item.Quantity" (change)="updateTotal()" min="1" class="px-3 py-2 rounded-lg shadow-md border-2 focus:ring-2 focus:ring-blue-500"/>
+          </mat-form-field>
+        </td>
+      </ng-container>
+  
+      <!-- Tổng -->
+      <ng-container matColumnDef="total">
+        <th mat-header-cell *matHeaderCellDef class="px-6 py-4 text-right">Tạm tính</th>
+        <td mat-cell *matCellDef="let item" class="px-6 py-4 text-right text-lg font-semibold text-gray-800">
+          {{ item.Quantity * item.Item.Itemdetails?.[0]?.ItemPrice | currency:'VND' }}
+        </td>
+      </ng-container>
+  
+      <!-- Hành động -->
+      <ng-container matColumnDef="action">
+        <th mat-header-cell *matHeaderCellDef class="px-6 py-4 text-center">Thao tác</th>
+        <td mat-cell *matCellDef="let item" class="px-6 py-4 text-center">
+          <button mat-icon-button color="warn" (click)="removeItem(item)" class="text-red-500 hover:text-red-700 transition duration-200">
+            <mat-icon>delete</mat-icon>
+          </button>
+        </td>
+      </ng-container>
+  
+      <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
+      <tr mat-row *matRowDef="let row; columns: columnsToDisplay;"></tr>
+    </table>
+  
+    <!-- Tổng tiền -->
+    <div class="text-right mt-6">
+      <p class="text-2xl font-semibold text-gray-800">
+        Tổng cộng: <span class="text-red-600">{{ totalAmount | currency:'VND' }}</span>
+      </p>
+      <button mat-raised-button color="primary" class="mt-6 px-8 py-3 text-white rounded-md shadow-lg hover:shadow-xl transition duration-200 transform hover:scale-105">🧾 Thanh toán</button>
+    </div>
+  </div>
+  

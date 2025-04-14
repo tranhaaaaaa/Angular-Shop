@@ -16,7 +16,7 @@ export class ItemService extends ApiService {
   }
 
   getAllItem(): Observable<ODataResponse> {
-    let url = '/Items?$expand=ItemDetails&$Orderby=ItemId DESC';
+    let url = '/Items?$expand=ItemDetails,Itemimages&$Orderby=ItemId DESC';
     return super.get(url).pipe(
       catchError((err) => throwError(() => new Error(err))),
 
@@ -37,7 +37,7 @@ export class ItemService extends ApiService {
   }
 
   getItemById(Id: any): Observable<ODataResponse> {
-    let url = `/Items?$filter=Id eq ${Id}&$expand=Category
+    let url = `/Items?$filter=ItemId eq ${Id}&$expand=Category
 &$expand=CreatedByNavigation
 &$expand=Cartitems
 &$expand=Itemdetails

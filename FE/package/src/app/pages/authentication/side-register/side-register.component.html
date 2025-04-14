@@ -33,19 +33,19 @@
           <form class="m-t-30">
             <mat-label class="f-s-14 f-w-600 m-b-12 d-block">Name</mat-label>
             <mat-form-field appearance="outline" class="w-100" color="primary">
-              <input matInput />
+              <input matInput (input)="onInputChange('FullName', $event)"/>
             </mat-form-field>
             <mat-label class="f-s-14 f-w-600 m-b-12 d-block">Email Adddress</mat-label>
             <mat-form-field appearance="outline" class="w-100" color="primary">
-              <input matInput type="email" />
+              <input matInput type="email" (input)="onInputChange('Email', $event)"/>
             </mat-form-field>
             <!-- password -->
             <mat-label class="f-s-14 f-w-600 m-b-12 d-block">Password</mat-label>
             <mat-form-field appearance="outline" class="w-100" color="primary">
-              <input matInput type="password" />
+              <input matInput type="password" (input)="onInputChange('Password', $event)"/>
             </mat-form-field>
 
-            <a [routerLink]="['/']" mat-flat-button color="primary" class="w-100">
+            <a mat-flat-button color="primary" (click)="submit()" class="w-100">
               Sign Up
             </a>
             <!-- input -->

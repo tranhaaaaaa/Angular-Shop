@@ -16,7 +16,7 @@ export class ItemdetailService extends ApiService {
   }
 
   getAllItemdetail(): Observable<ODataResponse> {
-    let url = '/Itemdetails?$expand=Item&$Orderby=ItemDetailId DESC';
+    let url = '/Itemdetails?$expand=Item($expand=Itemimages)&$Orderby=ItemDetailId DESC';
     return super.get(url).pipe(
       catchError((err) => throwError(() => new Error(err))),
 

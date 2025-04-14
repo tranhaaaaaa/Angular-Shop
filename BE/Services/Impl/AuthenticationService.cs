@@ -31,6 +31,7 @@ namespace ShopApi.Services.Impl
                 fullname = user.FullName,
                 userid = user.UserId,
                 email = user.Email,
+                status = user.Status,
                 roles = user.UserRoles!=null ? user.UserRoles.Select(c => new { c.Role.Id, c.Role.Name }).ToList() : null,
                 //depart = user.Depart!=null ? new { name = user.Depart.Name, description = user.Depart.Description, id = user.Depart.Id } : null,
                 //rights = user.UserRights!=null ? user.UserRights.Select(c => new { c.Right.Id, c.Right.Name, c.Right.Description }).ToList() : null
@@ -68,7 +69,7 @@ namespace ShopApi.Services.Impl
         private User GetUser(string username, string password)
         {
             var hashPassword = Unity.Md5Hash(password);
-            return _context.Users.Where(c => c.Password==hashPassword).Include(c => c.UserRoles).ThenInclude(c => c.Role)
+            return _context.Users.Where(c => c.Email.ToLower()==username.ToLower()).Where(c => c.Password==hashPassword).Include(c => c.UserRoles).ThenInclude(c => c.Role)
 
                 .FirstOrDefault();
         }

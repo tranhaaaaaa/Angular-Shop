@@ -3,8 +3,8 @@ import { ApiService } from './api.service';
 import { HttpClient } from '@angular/common/http';
 import { JsonConvert } from 'json2typescript';
 import { Observable, catchError, map, throwError } from 'rxjs';
-import { ODataResponse } from '../models/odata-response.model';
-import { Cartitem } from '../models/db.model';
+import { ODataResponse } from '../model/odata-response';
+import { Cartitem } from '../model/db.model';
 
 @Injectable({
   providedIn: 'root',
