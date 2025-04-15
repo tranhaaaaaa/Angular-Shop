@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Item } from 'src/app/core/model/db.model';
 import { CartService } from 'src/app/core/services/cart.service';
 import { CartitemService } from 'src/app/core/services/cartitem.service';
@@ -22,6 +23,7 @@ export class HomeComponent implements OnInit {
     private service: ItemService,
     private serviceItemDetail: ItemdetailService,
     private serviceCart : CartService,
+    private route : Router,
     private serviceCartItem : CartitemService
   ) {}
 
@@ -73,6 +75,7 @@ export class HomeComponent implements OnInit {
   addToCart(product: any) {
     const userId = this.userLogged.getCurrentUser()?.userId;
   
+   if(userId){
     this.serviceCart.getCartByQuery(`$filter=UserId eq ${userId}&$expand=Cartitems($filter=ItemId eq ${product.ItemId})`).subscribe(cartItem => {
       debugger;
       
@@ -86,12 +89,8 @@ export class HomeComponent implements OnInit {
           cartItemToUpdate.Quantity = cartItemToUpdate.Quantity + 1;  
           this.serviceCartItem.UpdateCartitem(cartItemToUpdate,cartItemToUpdate.CartItemId).subscribe(() => {
             alert('Sản phẩm đã được cập nhật trong giỏ.');
-          })
-          // this.serviceCart.UpdateCart(cartItem.value, cartItem.CartId).subscribe(updatedData => {
-          //   alert('Sản phẩm đã được cập nhật trong giỏ.');
-          // });
+          });
         } else {
-          // Nếu sản phẩm chưa có trong giỏ, thêm mới
           let formData = {
             CartId: cartItems.CartId,
             ItemId: product.ItemId,
@@ -101,21 +100,8 @@ export class HomeComponent implements OnInit {
           this.serviceCartItem.CreateCartitem(formData).subscribe(() => {
             alert('Sản phẩm được thêm vào giỏ.');
           });
-  
-          // this.serviceCart.UpdateCart(cartItem.value, cartItem.CartId).subscribe(() => {
-          //   let formData = {
-          //     CartId: cartItem.CartId, 
-          //     ItemId: product.ItemId,
-          //     Quantity: 1
-          //   };
-  
-            // this.serviceCartItem.CreateCartitem(formData).subscribe(() => {
-            //   alert('Sản phẩm đã được thêm vào giỏ.');
-            // });
-          // });
         }
       } else {
-        // Nếu giỏ hàng chưa tồn tại, tạo mới
         const newCartItem = {
           UserId: +userId,
         };
@@ -133,6 +119,10 @@ export class HomeComponent implements OnInit {
         });
       }
     });
+   }
+   else{
+      this.route.navigate(['/authentication/login']);
+   }
   }
   
   

@@ -10,6 +10,7 @@ import { MaterialModule } from 'src/app/material.module';
 import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { NgScrollbarModule } from 'ngx-scrollbar';
+import { UserLogged } from 'src/app/core/utils/userlogged';
 
 @Component({
   selector: 'app-header',
@@ -24,7 +25,15 @@ import { NgScrollbarModule } from 'ngx-scrollbar';
   encapsulation: ViewEncapsulation.None,
 })
 export class HeaderComponent {
+  public userLogged = new UserLogged()
   @Input() showToggle = true;
   @Input() toggleChecked = false;
   @Output() toggleMobileNav = new EventEmitter<void>();
+  onCartPage(){
+    if(this.userLogged.isLogged()){
+      window.location.href = '/cart'
+    }else{
+      window.location.href = '/authentication/login'
+    }
+  }
 }

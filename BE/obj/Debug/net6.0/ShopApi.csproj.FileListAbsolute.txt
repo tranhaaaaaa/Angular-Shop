@@ -74,4 +74,8 @@ E:\AngularShop\Angular-Shop\BE\obj\Debug\net6.0\refint\ShopApi.dll
 E:\AngularShop\Angular-Shop\BE\obj\Debug\net6.0\ShopApi.pdb
 E:\AngularShop\Angular-Shop\BE\obj\Debug\net6.0\ShopApi.genruntimeconfig.cache
 E:\AngularShop\Angular-Shop\BE\obj\Debug\net6.0\ref\ShopApi.dll
-E:\AngularShop\Angular-Shop\BE\obj\Debug\net6.0\ShopApi.csproj.CopyComplete
+E:\AngularShop\Angular-Shop\BE\bin\Debug\net6.0\ShopApi.staticwebassets.endpoints.json
+E:\AngularShop\Angular-Shop\BE\obj\Debug\net6.0\staticwebassets.build.endpoints.json
+E:\AngularShop\Angular-Shop\BE\obj\Debug\net6.0\staticwebassets\msbuild.ShopApi.Microsoft.AspNetCore.StaticWebAssetEndpoints.props
+E:\AngularShop\Angular-Shop\BE\obj\Debug\net6.0\staticwebassets.upToDateCheck.txt
+E:\AngularShop\Angular-Shop\BE\obj\Debug\net6.0\ShopApi.csproj.Up2Date
