@@ -40,6 +40,12 @@ export const routes: Routes = [
           import('./pages/home/home.module').then((m)=>m.HomeModule),
 
       },
+      {
+        path:'order-history',
+        loadChildren: () =>
+          import('./pages/order-history/order-history.module').then((m)=>m.OrderHistoryModule),
+
+      },
     ],
   },
   {

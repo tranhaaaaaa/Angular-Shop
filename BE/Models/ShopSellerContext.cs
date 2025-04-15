@@ -90,6 +90,8 @@ namespace ShopApi.Models
 
                 entity.Property(e => e.CartId).HasColumnName("cart_id");
 
+                entity.Property(e => e.ItemDetailId).HasColumnName("itemDetailId");
+
                 entity.Property(e => e.ItemId).HasColumnName("item_id");
 
                 entity.Property(e => e.Quantity).HasColumnName("quantity");
@@ -98,6 +100,11 @@ namespace ShopApi.Models
                     .WithMany(p => p.Cartitems)
                     .HasForeignKey(d => d.CartId)
                     .HasConstraintName("FK__cartitems__cart___5CD6CB2B");
+
+                entity.HasOne(d => d.ItemDetail)
+                    .WithMany(p => p.Cartitems)
+                    .HasForeignKey(d => d.ItemDetailId)
+                    .HasConstraintName("FK_cartitems_itemdetails");
 
                 entity.HasOne(d => d.Item)
                     .WithMany(p => p.Cartitems)

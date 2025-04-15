@@ -17,6 +17,7 @@ import { SidebarComponent } from './sidebar/sidebar.component';
 import { AppNavItemComponent } from './sidebar/nav-item/nav-item.component';
 import { navItems } from './sidebar/sidebar-data';
 import { AppTopstripComponent } from './top-strip/topstrip.component';
+import { UserpermissionService } from 'src/app/core/services/userpermission.service';
 
 
 const MOBILE_VIEW = 'screen and (max-width: 768px)';
@@ -58,13 +59,17 @@ export class FullComponent implements OnInit {
   get isOver(): boolean {
     return this.isMobileScreen;
   }
-
+  isAdmin : boolean = false;
 
   constructor(
     private settings: CoreService,
     private router: Router,
     private breakpointObserver: BreakpointObserver,
+    private permission : UserpermissionService
   ) {
+    if(this.permission.asRole(["admin"])) {  
+      this.isAdmin = true
+    }
     this.htmlElement = document.querySelector('html')!;
     this.layoutChangesSubscription = this.breakpointObserver
       .observe([MOBILE_VIEW, TABLET_VIEW])
@@ -88,7 +93,9 @@ export class FullComponent implements OnInit {
       });
   }
 
-  ngOnInit(): void { }
+  ngOnInit(): void {
+    console.log(this.isAdmin);
+   }
 
   ngOnDestroy() {
     this.layoutChangesSubscription.unsubscribe();

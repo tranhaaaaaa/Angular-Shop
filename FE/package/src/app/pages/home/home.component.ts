@@ -94,6 +94,7 @@ export class HomeComponent implements OnInit {
           let formData = {
             CartId: cartItems.CartId,
             ItemId: product.ItemId,
+            ItemDetailId: product.Itemdetails[0].ItemDetailId,
             Quantity: 1
           };
   
@@ -110,9 +111,10 @@ export class HomeComponent implements OnInit {
           let formData = {
             CartId: data.CartId,
             ItemId: product.ItemId,
+            ItemDetailId: product.Itemdetails[0].ItemDetailId,
             Quantity: 1
           };
-  
+          console.log("product",product)
           this.serviceCartItem.CreateCartitem(formData).subscribe(() => {
             alert('Giỏ hàng đã được tạo và sản phẩm được thêm vào giỏ.');
           });

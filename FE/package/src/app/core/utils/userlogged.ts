@@ -24,13 +24,21 @@ export class UserLogged {
       }
       try {
         roles.forEach((role: any) => {
-          result.push((role as string).trim().toLowerCase());
+          result.push((role.Name as string).trim().toLowerCase());
         });
       } catch (error) {}
       console.log("userrole",result);
       return result;
     }
-
+    getUserRoleIds() {
+      let ids: any = [];
+      try {
+        ids = JSON.parse(this.getCookie(this.userRoleKey));
+      } catch (err) {
+        ids = this.getCookie(this.userRoleKey);
+      }
+      return ids;
+    }
     getCurrentUser(): any {
       let userId = this.getCookie(this.userIdKey);
       let token = this.getCookie(this.TOKENKEY);

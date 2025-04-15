@@ -16,7 +16,7 @@ export class OrderService extends ApiService {
   }
 
   getAllOrder(): Observable<ODataResponse> {
-    let url = '/Orders?$Orderby=Id DESC';
+    let url = '/Orderses?$Orderby=Id DESC';
     return super.get(url).pipe(
       catchError((err) => throwError(() => new Error(err))),
 
@@ -37,7 +37,7 @@ export class OrderService extends ApiService {
   }
 
   getOrderById(Id: any): Observable<ODataResponse> {
-    let url = `/Orders?$filter=Id eq ${Id}&$expand=Address
+    let url = `/Orderses?$filter=Id eq ${Id}&$expand=Address
 &$expand=User
 &$expand=Orderdetails
 &$expand=Payments
@@ -60,7 +60,7 @@ export class OrderService extends ApiService {
   }
 
   CreateOrder(formData: any): Observable<Order> {
-    let url = `/Orders`;
+    let url = `/Orderses`;
     return super.postEntity(url, formData).pipe(
       catchError((err) => throwError(() => new Error(err))),
       map((res) => {
@@ -88,7 +88,7 @@ export class OrderService extends ApiService {
   }
 
   getOrderByQuery(queryParams?: string): Observable<ODataResponse> {
-    let url = `/Orders?${queryParams}`;
+    let url = `/Orderses?${queryParams}`;
     return super.get(url).pipe(
       catchError((err) => throwError(() => new Error(err))),
       map((res) => {

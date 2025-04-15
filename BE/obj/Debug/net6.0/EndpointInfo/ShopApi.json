@@ -9583,11 +9583,19 @@
             "format": "int32",
             "nullable": true
           },
+          "ItemDetailId": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
           "Cart": {
             "$ref": "#/components/schemas/Cart"
           },
           "Item": {
             "$ref": "#/components/schemas/Item"
+          },
+          "ItemDetail": {
+            "$ref": "#/components/schemas/Itemdetail"
           }
         },
         "additionalProperties": false
@@ -10505,6 +10513,13 @@
           },
           "Item": {
             "$ref": "#/components/schemas/Item"
+          },
+          "Cartitems": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Cartitem"
+            },
+            "nullable": true
           },
           "Orderdetails": {
             "type": "array",

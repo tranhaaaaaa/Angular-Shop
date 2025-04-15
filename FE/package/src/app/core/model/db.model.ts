@@ -164,6 +164,17 @@ export class ItemConverter implements JsonCustomConvert<Item> {
     }
 }
 @JsonConverter
+export class ItemdetailConverter implements JsonCustomConvert<Itemdetail> {
+    serialize(data: Itemdetail): any {
+        const jsonConvert = new JsonConvert();
+        return jsonConvert.serialize(data);
+    }
+    deserialize(data: any): Itemdetail {
+        const jsonConvert = new JsonConvert();
+        return jsonConvert.deserializeObject(data, Itemdetail);
+    }
+}
+@JsonConverter
 export class CategoryConverter implements JsonCustomConvert<Category> {
     serialize(data: Category): any {
         const jsonConvert = new JsonConvert();
@@ -238,17 +249,6 @@ export class PaymentArrayConverter implements JsonCustomConvert<Payment[]> {
     deserialize(data: any): Payment[] {
         const jsonConvert = new JsonConvert();
         return jsonConvert.deserializeArray(data, Payment);
-    }
-}
-@JsonConverter
-export class ItemdetailConverter implements JsonCustomConvert<Itemdetail> {
-    serialize(data: Itemdetail): any {
-        const jsonConvert = new JsonConvert();
-        return jsonConvert.serialize(data);
-    }
-    deserialize(data: any): Itemdetail {
-        const jsonConvert = new JsonConvert();
-        return jsonConvert.deserializeObject(data, Itemdetail);
     }
 }
 @JsonConverter
@@ -385,11 +385,17 @@ export class Cartitem {
     @JsonProperty('Quantity', NumberConverter, true)
     Quantity: number = undefined as any;
 
+    @JsonProperty('ItemDetailId', NumberConverter, true)
+    ItemDetailId: number = undefined as any;
+
     @JsonProperty('Cart', CartConverter, true)
     Cart: Cart = undefined as any;
 
     @JsonProperty('Item', ItemConverter, true)
     Item: Item = undefined as any;
+
+    @JsonProperty('ItemDetail', ItemdetailConverter, true)
+    ItemDetail: Itemdetail = undefined as any;
 
 }
 
@@ -463,6 +469,9 @@ export class Itemdetail {
 
     @JsonProperty('Item', ItemConverter, true)
     Item: Item = undefined as any;
+
+    @JsonProperty('Cartitems', CartitemArrayConverter, true)
+    Cartitems: Cartitem[] = [] as any;
 
     @JsonProperty('Orderdetails', OrderdetailArrayConverter, true)
     Orderdetails: Orderdetail[] = [] as any;

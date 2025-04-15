@@ -7,6 +7,7 @@ namespace ShopApi.Models
     {
         public Itemdetail()
         {
+            Cartitems = new HashSet<Cartitem>();
             Orderdetails = new HashSet<Orderdetail>();
         }
 
@@ -18,6 +19,7 @@ namespace ShopApi.Models
         public double? ItemPrice { get; set; }
 
         public virtual Item? Item { get; set; }
+        public virtual ICollection<Cartitem> Cartitems { get; set; }
         public virtual ICollection<Orderdetail> Orderdetails { get; set; }
     }
 }

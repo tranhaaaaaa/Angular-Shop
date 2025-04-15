@@ -5,64 +5,62 @@ export const navItems: NavItem[] = [
     navCap: 'Home',
   },
   {
-    displayName: 'Dashboard',
+    displayName: 'Quản lý người dùng',
     iconName: 'layout-grid-add',
     route: '/dashboard',
   },
+ 
   {
-    navCap: 'Ui Components',
-  },
-  {
-    displayName: 'Badge',
+    displayName: 'Quản lý sản phẩm',
     iconName: 'archive',
     route: '/ui-components/badge',
   },
-  {
-    displayName: 'Chips',
-    iconName: 'info-circle',
-    route: '/ui-components/chips',
-  },
-  {
-    displayName: 'Lists',
-    iconName: 'list-details',
-    route: '/ui-components/lists',
-  },
-  {
-    displayName: 'Menu',
-    iconName: 'file-text',
-    route: '/ui-components/menu',
-  },
-  {
-    displayName: 'Tooltips',
-    iconName: 'file-text-ai',
-    route: '/ui-components/tooltips',
-  },
-  {
-    displayName: 'Forms',
-    iconName: 'clipboard-text',
-    route: '/ui-components/forms',
-  },
-  {
-    displayName: 'Tables',
-    iconName: 'table',
-    route: '/ui-components/tables',
-  },
+  // {
+  //   displayName: 'Chips',
+  //   iconName: 'info-circle',
+  //   route: '/ui-components/chips',
+  // },
+  // {
+  //   displayName: 'Lists',
+  //   iconName: 'list-details',
+  //   route: '/ui-components/lists',
+  // },
+  // {
+  //   displayName: 'Menu',
+  //   iconName: 'file-text',
+  //   route: '/ui-components/menu',
+  // },
+  // {
+  //   displayName: 'Tooltips',
+  //   iconName: 'file-text-ai',
+  //   route: '/ui-components/tooltips',
+  // },
+  // {
+  //   displayName: 'Forms',
+  //   iconName: 'clipboard-text',
+  //   route: '/ui-components/forms',
+  // },
+  // {
+  //   displayName: 'Tables',
+  //   iconName: 'table',
+  //   route: '/ui-components/tables',
+  // },
 
-  {
-    navCap: 'Extra',
-  },
-  {
-    displayName: 'Icons',
-    iconName: 'mood-smile',
-    route: '/extra/icons',
-  },
-  {
-    displayName: 'Sample Page',
-    iconName: 'brand-dribbble',
-    route: '/extra/sample-page',
-  },
-  {
-    navCap: 'Forms',
-  },
+  // {
+  //   navCap: 'Extra',
+  // },
+  // {
+  //   displayName: 'Icons',
+  //   iconName: 'mood-smile',
+  //   route: '/extra/icons',
+  // },
+  // {
+  //   displayName: 'Sample Page',
+  //   iconName: 'brand-dribbble',
+  //   route: '/extra/sample-page',
+  // },
+  // {
+  //   navCap: 'Forms',
+  // },
 
 ];
