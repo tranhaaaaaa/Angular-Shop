@@ -24,4 +24,7 @@ export class AppTopstripComponent {
           window.location.href = '/authentication/login'
         }
       }
+      onLogout(){
+        this.userLogged.logout();
+      }
 }

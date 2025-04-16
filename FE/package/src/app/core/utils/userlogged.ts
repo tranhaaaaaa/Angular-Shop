@@ -85,7 +85,7 @@ export class UserLogged {
     logout(): void {
       this.deleteCookie(this.TOKENKEY);
       this.deleteCookie(this.userIdKey);
-      // this.deleteCookie(this.TypeKey);
+       this.deleteCookie(this.userRoleKey);
 
       // this.deleteCookie(this.userPermissionKey1);
     }
