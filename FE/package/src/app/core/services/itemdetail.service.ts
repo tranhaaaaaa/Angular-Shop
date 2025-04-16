@@ -37,7 +37,7 @@ export class ItemdetailService extends ApiService {
   }
 
   getItemdetailById(Id: any): Observable<ODataResponse> {
-    let url = `/Itemdetails?$filter=Id eq ${Id}&$expand=Item
+    let url = `/Itemdetails?$filter=ItemDetailId eq ${Id}&$expand=Item
 &$expand=Orderdetails
 `;
     return super.get(url).pipe(

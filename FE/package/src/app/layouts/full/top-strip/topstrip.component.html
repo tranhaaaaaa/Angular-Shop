@@ -18,24 +18,46 @@
                 Order History
             </div>
         </button>
-
-        <!-- Hire Us -->
-        <a mat-button class="text-white d-none d-lg-flex" href="https://www.wrappixel.com/hire-us/" target="_blank">
-            <!-- <div class="d-flex align-items-center gap-4">
-                <i-tabler name="briefcase" class="icon-20 d-flex"></i-tabler>
-                Hire Us
-            </div> -->
-        </a>
-
-        <!-- Live Preview -->
-        <button class="d-flex align-items-center gap-4 text-white b-1 border-primary m-x-10" mat-button
-           >
-            <!-- <div class="d-flex align-items-center gap-6">
-                <i-tabler name="device-laptop" class="icon-20 d-flex"></i-tabler>
-                Live Preview
-                <i-tabler name="chevron-down" class="icon-20 d-flex"></i-tabler>
-            </div> -->
+        <button mat-button class="text-white d-none d-lg-flex" [routerLink]="['/cart']" target="_blank">
+              <mat-icon style="margin-left: -45px;">shopping_cart</mat-icon>
+              <span 
+                style="
+                  position: absolute;
+                  top: -20px;
+                  right: 0px;
+                  background-color: #dc2626;
+                  color: #fff;
+                  border-radius: 9999px;
+                  padding: 2px 6px;
+                  font-size: 12px;
+                  font-weight: bold;
+                  line-height: 1;
+                ">
+                5
+              </span>
         </button>
+          
+          
+          
+            <!-- --------------------------------------------------------------- -->
+            <!-- profile Dropdown -->
+            <!-- --------------------------------------------------------------- -->
+            <!-- <a mat-flat-button href="https://www.wrappixel.com/templates/flexy-material-angular-admin/?ref=353"
+              target="_blank" class="d-flex justify-content-center bg-success">
+              Check Pro Template
+            </a> -->
+            <button mat-mini-fab [matMenuTriggerFor]="profilemenu" aria-label="Notifications">
+              <img src="/assets/images/profile/user-1.jpg" class="rounded-circle object-cover d-block" width="35" />
+            </button>
+            <mat-menu #profilemenu="matMenu" class="cardWithShadow topbar-dd">
+           
+          
+          
+              <div class="p-x-12 m-t-12">
+                <a [routerLink]="['/authentication/login']" mat-stroked-button class="w-100">Logout</a>
+              </div>
+            </mat-menu>
+    
       
         
 

@@ -32,6 +32,7 @@ const TABLET_VIEW = 'screen and (min-width: 769px) and (max-width: 1024px)';
     MaterialModule,
     CommonModule,
     SidebarComponent,
+    MaterialModule,
     NgScrollbarModule,
     TablerIconsModule,
     HeaderComponent,
@@ -112,7 +113,7 @@ export class FullComponent implements OnInit {
   }
 
   onSidenavClosedStart() {
-    this.isContentWidthFixed = false;
+    this.isContentWidthFixed = true;
   }
 
   onSidenavOpenedChange(isOpened: boolean) {

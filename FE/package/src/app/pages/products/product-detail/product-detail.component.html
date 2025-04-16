@@ -1,0 +1,166 @@
+<mat-card class="cardWithShadow theme-card">
+  <mat-card-header>
+    <mat-card-title class="m-b-0">Thông tin sản phẩm</mat-card-title>
+  </mat-card-header>
+  <mat-card-content class="b-t-1">
+    <form>
+      <div class="row">
+        <div class="col-lg-6">
+          <!-- input -->
+          <mat-label class="f-w-600 m-b-8 d-block">Tên sản phẩm</mat-label>
+
+          @if(productDetail){
+          <mat-form-field appearance="outline" class="w-100" color="primary">
+            <input
+              matInput
+              placeholder="Tên sản phẩm"
+              [value]="productDetail.ItemName || ''"
+              (input)="onInputChange('ItemName', $event)"
+            />
+          </mat-form-field>
+          } @else {
+          <mat-form-field appearance="outline" class="w-100" color="primary">
+            <input
+              matInput
+              placeholder="Tên sản phẩm"
+              (input)="onInputChange('ItemName', $event)"
+            />
+          </mat-form-field>
+          }
+        </div>
+
+        <div class="col-lg-6">
+          <!-- input -->
+          <mat-label class="f-w-600 m-b-8 d-block">Mô tả</mat-label>
+
+          @if (productDetail) {
+          <mat-form-field appearance="outline" class="w-100" color="primary">
+            <input
+              matInput
+              [value]="productDetail.ItemDescription || ''"
+              placeholder="Mô tả "
+              (input)="onInputChange('ItemDescription', $event)"
+            />
+          </mat-form-field>
+          } @else {
+          <mat-form-field appearance="outline" class="w-100" color="primary">
+            <input
+              matInput
+              placeholder="Mô tả "
+              (input)="onInputChange('ItemDescription', $event)"
+            />
+          </mat-form-field>
+          }
+        </div>
+        <div class="col-lg-4">
+          <mat-label class="f-w-600 m-b-8 d-block">Màu sắc</mat-label>
+
+          @if (idProduct) {
+            <mat-form-field
+            appearance="outline"
+            class="w-100"
+            color="primary"
+          >
+            <input
+              matInput
+              placeholder="Mô tả "
+              [value]="productDetail.Itemdetails[0].Color"
+              (input)="onInputChangeItemDetail('Color', $event)"
+            />
+          </mat-form-field>
+          } @else {
+          <mat-form-field appearance="outline" class="w-100" color="primary">
+            <input
+              matInput
+              placeholder="Mô tả "
+              (input)="onInputChangeItemDetail('Color', $event)"
+            />
+          </mat-form-field>
+          }
+        </div>
+
+        <div class="col-lg-4">
+          <!-- input -->
+          <mat-label class="f-w-600 m-b-8 d-block">Số lượng</mat-label>
+
+          @if (idProduct) {
+          <mat-form-field appearance="outline" class="w-100" color="primary">
+            <input
+              matInput
+              type="number"
+              [value]="productDetail.Itemdetails[0].Quantity"
+              placeholder="Số lượng "
+              (input)="onInputChangeItemDetail('Quantity', $event)"
+            />
+          </mat-form-field>
+
+          } @else {
+          <mat-form-field appearance="outline" class="w-100" color="primary"
+            ><input
+              matInput
+              type="number"
+              placeholder="Số lượng "
+              (input)="onInputChangeItemDetail('Quantity', $event)"
+            />
+          </mat-form-field>
+          }
+        </div>
+
+        <div class="col-lg-4">
+          <!-- input -->
+          <mat-label class="f-w-600 m-b-8 d-block">Giá</mat-label>
+
+          @if (idProduct) {
+
+          <mat-form-field appearance="outline" class="w-100" color="primary">
+            <input
+              matInput
+              type="number"
+              [value]="productDetail.Itemdetails[0].ItemPrice"
+              placeholder="Giá "
+              (input)="onInputChangeItemDetail('ItemPrice', $event)"
+            />
+          </mat-form-field>
+          } @else {
+          <mat-form-field appearance="outline" class="w-100" color="primary">
+            <input
+              matInput
+              type="number"
+              placeholder="Giá "
+              (input)="onInputChangeItemDetail('ItemPrice', $event)"
+            /> </mat-form-field
+          >}
+        </div>
+        <div class="col-lg-6">
+          <!-- input -->
+          <mat-label class="f-w-600 m-b-8 d-block">Trạng thái</mat-label>
+
+          <mat-form-field appearance="outline" class="w-100" color="primary">
+            <mat-select
+              [(value)]="status"
+              (selectionChange)="onInputChange('IsAvailable', $event.value)"
+            >
+              @for(option of stt; track option.value) {
+              <mat-option [value]="option.value">{{
+                option.viewValue
+              }}</mat-option>
+              }
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="m-t-12">
+        <button
+          mat-flat-button
+          color="primary"
+          type="button"
+          class="m-r-8"
+          (click)="onSubmit()"
+        >
+          Lưu
+        </button>
+        <button mat-stroked-button color="warn">Hủy</button>
+      </div>
+    </form>
+  </mat-card-content>
+</mat-card>

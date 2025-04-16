@@ -1,0 +1,86 @@
+<mat-card class="cardWithShadow">
+    <mat-card-content>
+      <h2 style="margin-bottom:20px">Danh sách sản phẩm</h2>
+      <button mat-flat-button class="bg-success text-white" (click)="onClickAddProduct()">
+        <mat-icon>add</mat-icon>
+        <span>Thêm sản phẩm mới</span>
+      </button>
+  
+      <div class="table-responsive">
+        <table mat-table [dataSource]="dataSource1" matSort class="w-100">
+          <!-- Tên sản phẩm -->
+          <ng-container matColumnDef="name">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header class="f-w-600 f-s-14 p-l-0">Tên sản phẩm</th>
+            <td mat-cell *matCellDef="let product" class="p-l-0">
+              <span>{{ product.ItemName }}</span>
+            </td>
+          </ng-container>
+  
+          <!-- Màu sắc -->
+          <ng-container matColumnDef="color">
+            <th mat-header-cell *matHeaderCellDef class="f-w-600 f-s-14 p-l-0">Màu</th>
+            <td mat-cell *matCellDef="let product" class="p-l-0">
+              <span>{{ product.Itemdetails[0].Color }}</span>
+            </td>
+          </ng-container>
+  
+          <!-- Số lượng -->
+          <ng-container matColumnDef="quantity">
+            <th mat-header-cell *matHeaderCellDef class="f-w-600 f-s-14">Số lượng</th>
+            <td mat-cell *matCellDef="let product" class="p-l-0">
+              <span>{{ product.Itemdetails[0].Quantity }}</span>
+            </td>
+          </ng-container>
+  
+          <!-- Giá -->
+          <ng-container matColumnDef="price">
+            <th mat-header-cell *matHeaderCellDef class="f-w-600 f-s-14">Giá</th>
+            <td mat-cell *matCellDef="let product" class="p-l-0">
+              <span>{{ product.Itemdetails[0].ItemPrice | number }}</span>
+            </td>
+          </ng-container>
+  
+          <!-- Trạng thái -->
+          <ng-container matColumnDef="status">
+            <th mat-header-cell *matHeaderCellDef class="f-w-600 f-s-14">Trạng thái</th>
+            <td mat-cell *matCellDef="let product" class="p-l-0">
+                @if(product.IsAvailable){
+                  <span class="bg-light-success text-success rounded f-w-600 p-6 p-y-4 f-s-12">Còn hàng</span>
+                }
+                @else{
+                  <span class="bg-light-warning text-warning rounded f-w-600 p-6 p-y-4 f-s-12">Hết hàng</span>
+                }
+              <!-- <mat-slide-toggle
+                [checked]="product.IsAvailable"
+                (change)="toggleStatus(product)"
+              >
+              </mat-slide-toggle> -->
+            </td>
+          </ng-container>
+  
+          <!-- Hành động -->
+          <ng-container matColumnDef="action">
+            <th mat-header-cell *matHeaderCellDef class="f-w-600 f-s-14">Hành động</th>
+            <td mat-cell *matCellDef="let product">
+              <button mat-flat-button color="primary" (click)="onEditProduct(product)">
+                <mat-icon>edit</mat-icon>
+                <span>Sửa</span>
+              </button>
+              
+            </td>
+          </ng-container>
+  
+          <!-- Các hàng dữ liệu -->
+          <tr mat-header-row *matHeaderRowDef="displayedColumns1"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns1"></tr>
+        </table>
+  
+        <!-- Paginator -->
+        <mat-paginator [pageSizeOptions]="[5, 10, 50]"
+        showFirstLastButtons
+        aria-label="Select page of periodic elements">
+</mat-paginator>
+      </div>
+    </mat-card-content>
+  </mat-card>
+  

@@ -41,7 +41,7 @@ export class AppSideLoginComponent {
       if(res.status == 1){
         let userLogged: UserLogged = new UserLogged();
         console.log(res);
-      debugger
+   
               userLogged.setCurrentUser(
                 res.token,
                 res.userid,

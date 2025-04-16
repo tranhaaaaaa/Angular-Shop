@@ -1,1 +1,47 @@
-<p>order-history works!</p>
+<mat-card class="cardWithShadow">
+    <mat-card-content>
+      <h2 style="margin-bottom:20px">Lịch sử đơn hàng</h2>
+      <div class="table-responsive">
+        <table mat-table [dataSource]="listOrder" matSort class="w-100">
+          <!-- OrderId Column -->
+          <ng-container matColumnDef="orderId">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Mã đơn hàng </th>
+            <td mat-cell *matCellDef="let order">{{ order.OrderId }}</td>
+          </ng-container>
+  
+          <!-- OrderDate Column -->
+          <ng-container matColumnDef="orderDate">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Ngày đặt hàng </th>
+            <td mat-cell *matCellDef="let order">{{ order.OrderDate | date: 'short' }}</td>
+          </ng-container>
+  
+          <!-- TotalPrice Column -->
+          <ng-container matColumnDef="totalPrice">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Tổng giá </th>
+            <td mat-cell *matCellDef="let order">{{ order.TotalPrice | number }}</td>
+          </ng-container>
+  
+          <!-- OrderDetails Column -->
+          <ng-container matColumnDef="orderDetails">
+            <th mat-header-cell *matHeaderCellDef> Chi tiết đơn hàng </th>
+            <td mat-cell *matCellDef="let order">
+              <div *ngFor="let detail of order.Orderdetails">
+                <p><strong>Giá sản phẩm:</strong> {{ detail.ItemDetail.ItemPrice | number }}</p>
+                <p><strong>Số lượng:</strong> {{ detail.Quantity }}</p>
+                <p><strong>Màu sắc:</strong> {{ detail.ItemDetail?.Color }}</p>
+                <p><strong>Kích thước:</strong> {{ detail.ItemDetail?.Size }}</p>
+              </div>
+            </td>
+          </ng-container>
+  
+          <!-- Action Column -->
+         
+  
+          <!-- Table Rows -->
+          <tr mat-header-row *matHeaderRowDef="['orderId', 'orderDate', 'totalPrice', 'orderDetails']"></tr>
+          <tr mat-row *matRowDef="let row; columns: ['orderId', 'orderDate', 'totalPrice', 'orderDetails']"></tr>
+        </table>
+      </div>
+    </mat-card-content>
+  </mat-card>
+  

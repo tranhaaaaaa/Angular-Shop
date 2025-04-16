@@ -31,9 +31,10 @@
         <th mat-header-cell *matHeaderCellDef class="px-6 py-4 text-center">Số lượng</th>
         <td mat-cell *matCellDef="let item" class="px-6 py-4 text-center">
           <mat-form-field appearance="outline" class="w-24">
-            <input matInput type="number" [(ngModel)]="item.Quantity" (change)="updateTotal()" min="1" [max]="item.Item.Itemdetails[0]?.ItemQuantity" class="px-3 py-2 rounded-lg shadow-md border-2 focus:ring-2 focus:ring-blue-500"/>
+            <input matInput type="number" [(ngModel)]="item.Quantity" (change)="updateTotal()" min="1" [max]="item.Item.Itemdetails[0].Quantity" class="px-3 py-2 rounded-lg shadow-md border-2 focus:ring-2 focus:ring-blue-500"/>
           </mat-form-field>
         </td>
+      
       </ng-container>
       
   

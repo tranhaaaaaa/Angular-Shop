@@ -1,0 +1,83 @@
+
+<mat-card class="cardWithShadow">
+    <mat-card-content>
+      <h2 style="margin-bottom:20px">Tài khoản nhân viên</h2>
+      <button mat-flat-button  class="bg-success text-white" (click)="onClickAdd()">
+        <mat-icon>add</mat-icon>
+        <span>Thêm mới</span>
+      </button>
+      <div class="table-responsive">
+        <table mat-table [dataSource]="dataSource1" matSort class="w-100">
+          <!-- Position Column -->
+         <ng-container matColumnDef="assigned">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by Email" class="f-w-600 f-s-14 p-l-0">
+              Email
+            </th>
+            <td mat-cell *matCellDef="let element" class="p-l-0">
+              <span>
+                {{ element.Email }}
+              </span>
+            </td>
+          </ng-container>
+          <ng-container matColumnDef="fullname">
+            <th mat-header-cell *matHeaderCellDef class="f-w-600 f-s-14 p-l-0"> Họ và tên </th>
+            <td mat-cell *matCellDef="let element" class="p-l-0">
+              <span>{{ element.FullName }}</span>
+            </td>
+          </ng-container>
+          <!-- Name Column -->
+          <ng-container matColumnDef="name">
+            <th mat-header-cell *matHeaderCellDef class="f-w-600 f-s-14">
+              Số điện thoại
+            </th>
+            <td mat-cell *matCellDef="let element" class="p-l-0">
+              <span>
+                {{ element.PhoneNumber }}
+              </span>
+            </td>
+          </ng-container>
+          <!-- Weight Column -->
+          <ng-container matColumnDef="priority">
+            <th mat-header-cell *matHeaderCellDef class="f-w-600 f-s-14">
+              Trạng thái
+            </th>
+            <td mat-cell *matCellDef="let element">
+              @if(element.Status == 1) {
+              <mat-slide-toggle
+              class="example-margin"
+              [checked]="true"
+              (toggleChange)="actionStatus(element,0)"
+              >
+          </mat-slide-toggle>
+              } @if(element.Status == 0) {
+              <mat-slide-toggle
+              class="example-margin"
+              [checked]="false"
+              (toggleChange)="actionStatus(element,1)"
+              >
+          </mat-slide-toggle>
+              }
+            </td>
+          </ng-container>
+  
+          <!-- Symbol Column -->
+          <ng-container matColumnDef="budget">
+            <th mat-header-cell *matHeaderCellDef class="f-w-600 f-s-14">Hành động</th>
+            <td mat-cell *matCellDef="let element">
+                <button mat-flat-button color="primary" (click)="onDetailPage(element.UserId)">
+                  <mat-icon>edit</mat-icon>
+                  <span>Sửa</span>
+                </button>
+            </td>
+          </ng-container>
+  
+          <tr mat-header-row *matHeaderRowDef="displayedColumns1"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns1"></tr>
+        </table>
+        <mat-paginator [pageSizeOptions]="[10, 50, 100]"
+                   showFirstLastButtons
+                   aria-label="Select page of periodic elements">
+    </mat-paginator>
+      </div>
+    </mat-card-content>
+  </mat-card>

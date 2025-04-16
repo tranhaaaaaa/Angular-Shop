@@ -7,13 +7,13 @@ export const navItems: NavItem[] = [
   {
     displayName: 'Quản lý người dùng',
     iconName: 'layout-grid-add',
-    route: '/dashboard',
+    route: '/list-users',
   },
  
   {
     displayName: 'Quản lý sản phẩm',
     iconName: 'archive',
-    route: '/ui-components/badge',
+    route: '/products',
   },
   // {
   //   displayName: 'Chips',

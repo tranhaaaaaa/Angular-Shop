@@ -1,4 +1,4 @@
-<div class="p-4">
+<div class="container">
   <h2 class="mb-4">🛍️ Danh sách sản phẩm</h2>
 
   <!-- Tìm kiếm và sắp xếp -->
@@ -26,9 +26,9 @@
     
   </div>
 
-  <!-- Danh sách sản phẩm -->
-  <div class="col-md-4" style="gap:20px;display: flex;">
-    <mat-card *ngFor="let itemDetail of filteredItems">
+<div class="row" style="display: flex;">
+  <div class="col-md-4" style="gap:20px;display: contents;">
+    <mat-card *ngFor="let itemDetail of filteredItems" style="padding: 20px;">
       <img *ngIf="itemDetail.Itemimages.length > 0" mat-card-image 
       [src]="itemDetail.Itemimages[0].ItemImageUrl"
       alt="{{itemDetail.ItemName}}">
@@ -58,6 +58,7 @@
       </mat-card-actions>
     </mat-card>
   </div>
+</div>
 
   <h2 class="mt-8 mb-4">🎁 Voucher ưu đãi</h2>
   <div class="grid grid-cols-3 gap-4">

@@ -7,19 +7,22 @@ import { UserLogged } from 'src/app/core/utils/userlogged';
   selector: 'app-order-history',
   standalone: false,
   templateUrl: './order-history.component.html',
-  styleUrl: './order-history.component.scss'
+  styleUrls: ['./order-history.component.scss']
 })
-export class OrderHistoryComponent implements OnInit{
-  public listOrder : Order[]=[];
+export class OrderHistoryComponent implements OnInit {
+  public listOrder: Order[] = [];
   public userLogged = new UserLogged();
+
+  constructor(private service: OrderService) {}
+
   ngOnInit(): void {
     this.onGetData();
   }
-constructor(private service : OrderService){}
-onGetData(){
-  this.service.getOrderByQuery(`$filter=UserId eq ${this.userLogged.getCurrentUser().userId}&$expand=Orderdetails($expand=ItemDetail)`).subscribe((data) => {
-    this.listOrder = data.value;
-    console.log("list order" , this.listOrder)
-  })
-}
+
+  onGetData() {
+    this.service.getOrderByQuery(`$filter=UserId eq ${this.userLogged.getCurrentUser().userId}&$expand=Orderdetails($expand=ItemDetail)`).subscribe((data) => {
+      this.listOrder = data.value;
+      console.log("list order", this.listOrder);
+    });
+  }
 }
