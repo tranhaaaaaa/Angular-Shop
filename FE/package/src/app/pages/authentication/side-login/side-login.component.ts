@@ -49,12 +49,12 @@ export class AppSideLoginComponent {
                 res.userid,
                 JSON.stringify(res.roles),
               );
-             window.location.href = '/';
+             window.location.href = '/home';
              let formData = {
               LastLogin : new Date
              }
              this.userService.UpdateUser(formData, res.userid).subscribe(res => {
-                    
+
              })
       }
       else{

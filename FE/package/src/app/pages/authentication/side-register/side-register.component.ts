@@ -44,7 +44,7 @@ export class AppSideRegisterComponent {
     this.userService.CreateUser(this.userDetail).subscribe(newUser => {
       const formData = {
         UserId: newUser.UserId,
-        RoleId:  1
+        RoleId:  2
       };
         console.log(formData);
       this.userRoleService.CreateUserRole(formData).subscribe(roleData => {
