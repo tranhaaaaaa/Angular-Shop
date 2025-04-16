@@ -36,6 +36,16 @@
               </span>
             </td>
           </ng-container>
+          <ng-container matColumnDef="latslogin">
+            <th mat-header-cell *matHeaderCellDef class="f-w-600 f-s-14">
+              Lần đăng nhập cuối 
+            </th>
+            <td mat-cell *matCellDef="let element" class="p-l-0">
+              <span>
+                {{ element?.LastLogin | date: "dd/MM/yyyy HH:mm" }}
+              </span>
+            </td>
+          </ng-container>
           <!-- Weight Column -->
           <ng-container matColumnDef="priority">
             <th mat-header-cell *matHeaderCellDef class="f-w-600 f-s-14">

@@ -7,6 +7,7 @@ import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 import { LoginService } from 'src/app/core/services/login.service';
 import { UserLogged } from 'src/app/core/utils/userlogged';
+import { UserService } from 'src/app/core/services/user.service';
 
 @Component({
   selector: 'app-side-login',
@@ -17,7 +18,8 @@ export class AppSideLoginComponent {
   email : any;
   pass: any;
   constructor( private router: Router,
-    private service : LoginService
+    private service : LoginService,
+    private userService: UserService
   ) {}
 
   onChange(event: any) {
@@ -48,6 +50,12 @@ export class AppSideLoginComponent {
                 JSON.stringify(res.roles),
               );
              window.location.href = '/';
+             let formData = {
+              LastLogin : new Date
+             }
+             this.userService.UpdateUser(formData, res.userid).subscribe(res => {
+                    
+             })
       }
       else{
         alert("Tài khoản của bạn chưa được kích hoạt! ")

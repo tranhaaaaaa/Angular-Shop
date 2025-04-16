@@ -16,7 +16,7 @@ export class ManagerUserComponent implements OnInit{
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
   dataSource1 = new MatTableDataSource<User>(this.listUser);
-  displayedColumns1: string[] = ['assigned','fullname', 'name', 'priority', 'budget'];
+  displayedColumns1: string[] = ['assigned','fullname', 'name', 'priority','latslogin', 'budget'];
 
   ngOnInit(): void {
     this.onGetData();
